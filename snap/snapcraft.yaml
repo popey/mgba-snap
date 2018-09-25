@@ -1,0 +1,132 @@
+name: mgba
+summary: mGBA Game Boy Advance Emulator https://mgba.io/
+description: |
+  mGBA is an emulator for running Game Boy Advance games. It aims to be faster
+  and more accurate than many existing Game Boy Advance emulators, as well as
+  adding features that other emulators lack. It also supports Game Boy and
+  Game Boy Color games..
+adopt-info: mgba
+
+confinement: strict
+
+apps:
+  mgba-qt:
+    environment:
+      XLOCALEDIR: '$SNAP/usr/share/X11/locale'
+      LOCPATH: '$SNAP/usr/lib/locale'
+      XDG_CONFIG_HOME: '$HOME/.config'
+      XKB_CONFIG_ROOT: '$SNAP/usr/share/X11/xkb'
+      XDG_CONFIG_DIRS: '$SNAP/etc/xdg:$XDG_CONFIG_DIRS'
+      XDG_DATA_HOME: '$SNAP/usr/share'
+    command: desktop-launch mgba-qt
+    plugs:
+      - x11
+      - home
+      - pulseaudio
+      - opengl
+      - joystick
+  mgba:
+    environment:
+      XLOCALEDIR: '$SNAP/usr/share/X11/locale'
+      LOCPATH: '$SNAP/usr/lib/locale'
+      XDG_CONFIG_HOME: '$HOME/.config'
+      XKB_CONFIG_ROOT: '$SNAP/usr/share/X11/xkb'
+      XDG_CONFIG_DIRS: '$SNAP/etc/xdg:$XDG_CONFIG_DIRS'
+      XDG_DATA_HOME: '$SNAP/usr/share'
+    command: mgba
+    plugs:
+      - x11
+      - home
+      - pulseaudio
+      - opengl
+      - joystick
+
+parts:
+  mgba:
+    after: [desktop-qt5]
+    plugin: cmake
+    override-build: |
+      last_committed_tag="$(git describe --tags $(git rev-list --tags --max-count=1))"
+      last_released_tag="$(snap info mgba | awk '$1 == "beta:" { print $2 }')"
+      # If the latest tag from the upstream project has not been released to
+      # beta, build that tag instead of master.
+      if [ "${last_committed_tag}" != "${last_released_tag}" ]; then
+        git fetch
+        git checkout "${last_committed_tag}"
+        cd ../src
+        git checkout "${last_committed_tag}"
+      fi
+      snapcraftctl build
+      snapcraftctl set-version "$(git describe --tags)"
+    configflags:
+      - -DCMAKE_INSTALL_PREFIX:PATH=/usr
+    source: https://github.com/mgba-emu/mgba.git
+    build-packages:
+      - libedit-dev
+      - libavcodec-dev
+      - libavformat-dev
+      - libavresample-dev
+      - libavutil-dev
+      - libminizip-dev
+      - libpng12-dev
+      - libzip-dev
+      - libmagickwand-dev
+      - libepoxy-dev
+      - libsqlite3-dev
+      - libsdl2-dev
+      - libswscale-dev
+      - qtdeclarative5-dev
+      - qtmultimedia5-dev
+      - qttools5-dev-tools
+      - libpixman-1-dev
+      - libqt5opengl5-dev
+      - qtbase5-dev
+      - zlib1g-dev
+    stage-packages:
+      - librtmp1
+      - libqt5declarative5
+      - libqt5multimedia5
+      - libqt5multimedia5-plugins
+      - libzvbi0
+      - libzip4
+      - libxvidcore4
+      - libwebp5
+      - libwavpack1
+      - libvpx3
+      - libtwolame0
+      - libtheora0
+      - libssh-gcrypt-4
+      - libspeex1
+      - libsoxr0
+      - libsndio6.1
+      - libsnappy1v5
+      - libshine3
+      - libopus0
+      - libnuma1
+      - libmp3lame0
+      - libmodplug1
+      - libltdl7
+      - liblqr-1-0
+      - libgsm1
+      - libgomp1
+      - libgme0
+      - libfftw3-double3
+      - libcrystalhd3
+      - libxss1
+      - libsdl2-2.0-0
+      - libx264-148
+      - libx265-79
+      - libva1
+      - libswscale-ffmpeg3
+      - libswresample-ffmpeg1 
+      - libmagickwand-6.q16-2
+      - libschroedinger-1.0-0 
+      - libopenjpeg5
+      - libbluray1
+      - libavutil-ffmpeg54
+      - libavresample-ffmpeg2
+      - libavcodec-ffmpeg-extra56
+      - libavformat-ffmpeg56
+      - libmagickcore-6.q16-2
+    organize:
+      'usr/lib/*/pulseaudio/lib*': 'lib/'
