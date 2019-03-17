@@ -22,6 +22,7 @@ apps:
       XKB_CONFIG_ROOT: '$SNAP/usr/share/X11/xkb'
       XDG_CONFIG_DIRS: '$SNAP/etc/xdg:$XDG_CONFIG_DIRS'
       XDG_DATA_HOME: '$SNAP/usr/share'
+      DISABLE_WAYLAND: '1'
     command: desktop-launch mgba-qt
     plugs:
       - x11
