@@ -93,6 +93,7 @@ parts:
       snapcraftctl set-version "$(git describe --tags)"
     configflags:
       - -DCMAKE_INSTALL_PREFIX:PATH=/usr
+      - -DUPDATE_TRANSLATIONS=ON
     source: https://github.com/mgba-emu/mgba.git
     build-packages:
       - libedit-dev
@@ -113,6 +114,7 @@ parts:
       - qtmultimedia5-dev
       - qttools5-dev
       - qttools5-dev-tools
+      - qttranslations5-l10n
       - libpixman-1-dev
       - libqt5opengl5-dev
       - qtbase5-dev
@@ -121,6 +123,7 @@ parts:
       - librtmp1
       - libqt5multimedia5
       - libqt5multimedia5-plugins
+      - libqt5qml5
       - libelf1
       - libepoxy0
       - libzvbi0
@@ -163,6 +166,7 @@ parts:
       - libavformat57
       - libmagickcore-6.q16-3
       - qt5-style-plugins
+      - qttranslations5-l10n
 
   desktop-qt5:
     build-packages:
