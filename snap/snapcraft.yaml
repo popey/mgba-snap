@@ -137,6 +137,7 @@ parts:
       - libavresample3
       - libavformat57
       - libmagickcore-6.q16-3
+      - qt5-style-plugins
 
   desktop-qt5:
     build-packages:
