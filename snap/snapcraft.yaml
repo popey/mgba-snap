@@ -52,7 +52,7 @@ apps:
     plugs:
       - x11
       - home
-      - pulseaudio
+      - audio-playback
       - opengl
       - joystick
   mgba:
@@ -68,7 +68,7 @@ apps:
     plugs:
       - x11
       - home
-      - pulseaudio
+      - audio-playback
       - opengl
       - joystick
 
