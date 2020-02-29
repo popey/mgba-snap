@@ -15,17 +15,39 @@ architectures:
 confinement: strict
 grade: stable
 
+plugs: # additional plugs to pick up the GTK theme and icons from the system
+  icon-themes:
+    interface: content
+    target: $SNAP/data-dir/icons
+    default-provider: gtk-common-themes
+  sound-themes:
+    interface: content
+    target: $SNAP/data-dir/sounds
+    default-provider: gtk-common-themes
+  gtk-2-engines:
+    interface: content
+    target: $SNAP/lib/gtk-2.0
+    default-provider: gtk2-common-themes:gtk-2-engines
+  gtk-2-themes:
+    interface: content
+    target: $SNAP/share/themes
+    default-provider: gtk2-common-themes:gtk-2-themes
+
 apps:
   mgba-qt:
     environment:
       XLOCALEDIR: '$SNAP/usr/share/X11/locale'
       LOCPATH: '$SNAP/usr/lib/locale'
+      GTK_PATH: $SNAP/lib/gtk-2.0
+      GTK_DATA_PREFIX: $SNAP
+      XDG_DATA_DIRS: $SNAP/share:$XDG_DATA_DIRS
       XDG_CONFIG_HOME: '$HOME/.config'
       XKB_CONFIG_ROOT: '$SNAP/usr/share/X11/xkb'
       XDG_CONFIG_DIRS: '$SNAP/etc/xdg:$XDG_CONFIG_DIRS'
       XDG_DATA_HOME: '$SNAP/usr/share'
       DISABLE_WAYLAND: '1'
       LD_LIBRARY_PATH: '$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:$LD_LIBRARY_PATH'
+      QT_QPA_PLATFORMTHEME: gtk2 # set default theme to gtk to integrate with system theme (GTK2)
     command: desktop-launch mgba-qt
     plugs:
       - x11
