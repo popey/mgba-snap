@@ -96,6 +96,7 @@ parts:
     source: https://github.com/mgba-emu/mgba.git
     build-packages:
       - libedit-dev
+      - libelf-dev
       - libavcodec-dev
       - libavformat-dev
       - libavresample-dev
@@ -120,6 +121,7 @@ parts:
       - librtmp1
       - libqt5multimedia5
       - libqt5multimedia5-plugins
+      - libelf1
       - libepoxy0
       - libzvbi0
       - libzip4
