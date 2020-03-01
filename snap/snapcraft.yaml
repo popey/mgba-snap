@@ -102,6 +102,7 @@ parts:
       - libavformat-dev
       - libavresample-dev
       - libavutil-dev
+      - libavfilter-dev
       - libminizip-dev
       - libpng-dev
       - libzip-dev
@@ -164,6 +165,7 @@ parts:
       - libavutil55
       - libavresample3
       - libavformat57
+      - libavfilter6
       - libmagickcore-6.q16-3
       - qt5-style-plugins
       - qttranslations5-l10n
