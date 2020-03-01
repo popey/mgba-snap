@@ -56,6 +56,7 @@ apps:
       - audio-playback
       - opengl
       - joystick
+      - network
   mgba:
     environment:
       XLOCALEDIR: '$SNAP/usr/share/X11/locale'
@@ -72,6 +73,7 @@ apps:
       - audio-playback
       - opengl
       - joystick
+      - network
 
 parts:
   mgba:
@@ -104,6 +106,7 @@ parts:
       - libedit-dev
       - libelf-dev
       - libepoxy-dev
+      - libgail-dev
       - libmagickwand-dev
       - libminizip-dev
       - libpixman-1-dev
@@ -121,6 +124,7 @@ parts:
       - qttranslations5-l10n
       - zlib1g-dev
     stage-packages:
+      - libatk-adaptor
       - libavfilter6
       - libavformat57
       - libavresample3
@@ -130,6 +134,7 @@ parts:
       - libelf1
       - libepoxy0
       - libfftw3-double3
+      - libgail-common
       - libgme0
       - libgomp1
       - libgsm1
