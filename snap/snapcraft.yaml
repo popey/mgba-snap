@@ -96,77 +96,77 @@ parts:
       - -DUPDATE_TRANSLATIONS=ON
     source: https://github.com/mgba-emu/mgba.git
     build-packages:
-      - libedit-dev
-      - libelf-dev
       - libavcodec-dev
+      - libavfilter-dev
       - libavformat-dev
       - libavresample-dev
       - libavutil-dev
-      - libavfilter-dev
-      - libminizip-dev
-      - libpng-dev
-      - libzip-dev
-      - libmagickwand-dev
+      - libedit-dev
+      - libelf-dev
       - libepoxy-dev
-      - libsqlite3-dev
+      - libmagickwand-dev
+      - libminizip-dev
+      - libpixman-1-dev
+      - libpng-dev
+      - libqt5opengl5-dev
       - libsdl2-dev
+      - libsqlite3-dev
       - libswscale-dev
+      - libzip-dev
+      - qtbase5-dev
       - qtdeclarative5-dev
       - qtmultimedia5-dev
       - qttools5-dev
       - qttools5-dev-tools
       - qttranslations5-l10n
-      - libpixman-1-dev
-      - libqt5opengl5-dev
-      - qtbase5-dev
       - zlib1g-dev
     stage-packages:
-      - librtmp1
+      - libavfilter6
+      - libavformat57
+      - libavresample3
+      - libavutil55
+      - libbluray2
+      - libcrystalhd3
+      - libelf1
+      - libepoxy0
+      - libfftw3-double3
+      - libgme0
+      - libgomp1
+      - libgsm1
+      - liblqr-1-0
+      - libltdl7
+      - libmagickcore-6.q16-3
+      - libmagickwand-6.q16-3
+      - libmodplug1
+      - libmp3lame0
+      - libnuma1
+      - libopenjp2-7
+      - libopus0
       - libqt5multimedia5
       - libqt5multimedia5-plugins
       - libqt5qml5
-      - libelf1
-      - libepoxy0
-      - libzvbi0
-      - libzip4
-      - libxvidcore4
-      - libwebp6
-      - libwavpack1
-      - libvpx5
-      - libtwolame0
-      - libtheora0
-      - libssh-gcrypt-4
-      - libspeex1
-      - libsoxr0
-      - libsndio6.1
-      - libsnappy1v5
-      - libshine3
-      - libopus0
-      - libnuma1
-      - libmp3lame0
-      - libmodplug1
-      - libltdl7
-      - liblqr-1-0
-      - libgsm1
-      - libgomp1
-      - libgme0
-      - libfftw3-double3
-      - libcrystalhd3
-      - libxss1
+      - librtmp1
       - libsdl2-2.0-0
+      - libshine3
+      - libsnappy1v5
+      - libsndio6.1
+      - libsoxr0
+      - libspeex1
+      - libssh-gcrypt-4
+      - libswresample2
+      - libswscale4
+      - libtheora0
+      - libtwolame0
+      - libva2
+      - libvpx5
+      - libwavpack1
+      - libwebp6
       - libx264-152
       - libx265-146
-      - libva2
-      - libswscale4
-      - libswresample2
-      - libmagickwand-6.q16-3
-      - libopenjp2-7
-      - libbluray2
-      - libavutil55
-      - libavresample3
-      - libavformat57
-      - libavfilter6
-      - libmagickcore-6.q16-3
+      - libxss1
+      - libxvidcore4
+      - libzip4
+      - libzvbi0
       - qt5-style-plugins
       - qttranslations5-l10n
 
