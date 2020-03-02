@@ -1,12 +1,13 @@
 name: mgba
+base: core18
+license: MPL-2.0
+adopt-info: mgba
 summary: mGBA Game Boy Advance Emulator https://mgba.io/
 description: |
   mGBA is an emulator for running Game Boy Advance games. It aims to be faster
   and more accurate than many existing Game Boy Advance emulators, as well as
   adding features that other emulators lack. It also supports Game Boy and
-  Game Boy Color games..
-adopt-info: mgba
-base: core18
+  Game Boy Color games.
 
 architectures:
   - build-on: i386
@@ -15,24 +16,47 @@ architectures:
 confinement: strict
 grade: stable
 
+plugs: # additional plugs to pick up the GTK theme and icons from the system
+  icon-themes:
+    interface: content
+    target: $SNAP/data-dir/icons
+    default-provider: gtk-common-themes
+  sound-themes:
+    interface: content
+    target: $SNAP/data-dir/sounds
+    default-provider: gtk-common-themes
+  gtk-2-engines:
+    interface: content
+    target: $SNAP/lib/gtk-2.0
+    default-provider: gtk2-common-themes:gtk-2-engines
+  gtk-2-themes:
+    interface: content
+    target: $SNAP/share/themes
+    default-provider: gtk2-common-themes:gtk-2-themes
+
 apps:
   mgba-qt:
     environment:
       XLOCALEDIR: '$SNAP/usr/share/X11/locale'
       LOCPATH: '$SNAP/usr/lib/locale'
+      GTK_PATH: $SNAP/lib/gtk-2.0
+      GTK_DATA_PREFIX: $SNAP
+      XDG_DATA_DIRS: $SNAP/share:$XDG_DATA_DIRS
       XDG_CONFIG_HOME: '$HOME/.config'
       XKB_CONFIG_ROOT: '$SNAP/usr/share/X11/xkb'
       XDG_CONFIG_DIRS: '$SNAP/etc/xdg:$XDG_CONFIG_DIRS'
       XDG_DATA_HOME: '$SNAP/usr/share'
       DISABLE_WAYLAND: '1'
       LD_LIBRARY_PATH: '$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:$LD_LIBRARY_PATH'
+      QT_QPA_PLATFORMTHEME: gtk2 # set default theme to gtk to integrate with system theme (GTK2)
     command: desktop-launch mgba-qt
     plugs:
       - x11
       - home
-      - pulseaudio
+      - audio-playback
       - opengl
       - joystick
+      - network
   mgba:
     environment:
       XLOCALEDIR: '$SNAP/usr/share/X11/locale'
@@ -46,9 +70,10 @@ apps:
     plugs:
       - x11
       - home
-      - pulseaudio
+      - audio-playback
       - opengl
       - joystick
+      - network
 
 parts:
   mgba:
@@ -70,72 +95,85 @@ parts:
       snapcraftctl set-version "$(git describe --tags)"
     configflags:
       - -DCMAKE_INSTALL_PREFIX:PATH=/usr
+      - -DUPDATE_TRANSLATIONS=ON
     source: https://github.com/mgba-emu/mgba.git
     build-packages:
-      - libedit-dev
       - libavcodec-dev
+      - libavfilter-dev
       - libavformat-dev
       - libavresample-dev
       - libavutil-dev
-      - libminizip-dev
-      - libpng-dev
-      - libzip-dev
-      - libmagickwand-dev
+      - libedit-dev
+      - libelf-dev
       - libepoxy-dev
-      - libsqlite3-dev
+      - libgail-dev
+      - libmagickwand-dev
+      - libminizip-dev
+      - libpixman-1-dev
+      - libpng-dev
+      - libqt5opengl5-dev
       - libsdl2-dev
+      - libsqlite3-dev
       - libswscale-dev
+      - libzip-dev
+      - qtbase5-dev
       - qtdeclarative5-dev
       - qtmultimedia5-dev
+      - qttools5-dev
       - qttools5-dev-tools
-      - libpixman-1-dev
-      - libqt5opengl5-dev
-      - qtbase5-dev
+      - qttranslations5-l10n
       - zlib1g-dev
     stage-packages:
-      - librtmp1
+      - libatk-adaptor
+      - libavfilter6
+      - libavformat57
+      - libavresample3
+      - libavutil55
+      - libbluray2
+      - libcrystalhd3
+      - libelf1
+      - libepoxy0
+      - libfftw3-double3
+      - libgail-common
+      - libgme0
+      - libgomp1
+      - libgsm1
+      - liblqr-1-0
+      - libltdl7
+      - libmagickcore-6.q16-3
+      - libmagickwand-6.q16-3
+      - libmodplug1
+      - libmp3lame0
+      - libnuma1
+      - libopenjp2-7
+      - libopus0
       - libqt5multimedia5
       - libqt5multimedia5-plugins
-      - libepoxy0
-      - libzvbi0
-      - libzip4
-      - libxvidcore4
-      - libwebp6
-      - libwavpack1
-      - libvpx5
-      - libtwolame0
-      - libtheora0
-      - libssh-gcrypt-4
-      - libspeex1
-      - libsoxr0
-      - libsndio6.1
-      - libsnappy1v5
-      - libshine3
-      - libopus0
-      - libnuma1
-      - libmp3lame0
-      - libmodplug1
-      - libltdl7
-      - liblqr-1-0
-      - libgsm1
-      - libgomp1
-      - libgme0
-      - libfftw3-double3
-      - libcrystalhd3
-      - libxss1
+      - libqt5qml5
+      - librtmp1
       - libsdl2-2.0-0
+      - libshine3
+      - libsnappy1v5
+      - libsndio6.1
+      - libsoxr0
+      - libspeex1
+      - libssh-gcrypt-4
+      - libswresample2
+      - libswscale4
+      - libtheora0
+      - libtwolame0
+      - libva2
+      - libvpx5
+      - libwavpack1
+      - libwebp6
       - libx264-152
       - libx265-146
-      - libva2
-      - libswscale4
-      - libswresample2
-      - libmagickwand-6.q16-3
-      - libopenjp2-7
-      - libbluray2
-      - libavutil55
-      - libavresample3
-      - libavformat57
-      - libmagickcore-6.q16-3
+      - libxss1
+      - libxvidcore4
+      - libzip4
+      - libzvbi0
+      - qt5-style-plugins
+      - qttranslations5-l10n
 
   desktop-qt5:
     build-packages:
