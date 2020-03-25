@@ -99,6 +99,7 @@ parts:
     configflags:
       - -DCMAKE_INSTALL_PREFIX:PATH=/usr
       - -DUPDATE_TRANSLATIONS=ON
+      - -DUSE_DISCORD_RPC=OFF
     source: https://github.com/mgba-emu/mgba.git
     build-packages:
       - libavcodec-dev
