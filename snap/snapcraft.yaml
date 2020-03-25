@@ -89,10 +89,13 @@ parts:
         git fetch
         git checkout "${last_committed_tag}"
         cd ../src
-        git checkout "${last_committed_tag}"
+        snapcraftctl set-version "${last_committed_tag}"
+      else
+        git checkout master
+        snapcraftctl set-version "git"
       fi
       snapcraftctl build
-      snapcraftctl set-version "$(git describe --tags)"
+      
     configflags:
       - -DCMAKE_INSTALL_PREFIX:PATH=/usr
       - -DUPDATE_TRANSLATIONS=ON
