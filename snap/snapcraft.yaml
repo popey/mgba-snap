@@ -205,3 +205,10 @@ parts:
     - locales-all
     - xdg-user-dirs
     - fcitx-frontend-qt5
+    - libatk1.0-0
+    - libgtk2.0-0
+    - libxcomposite1
+    - libxcursor1
+    - libxinerama1
+    - libxrandr2
+
