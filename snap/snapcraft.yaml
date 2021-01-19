@@ -47,7 +47,7 @@ apps:
       XDG_CONFIG_DIRS: '$SNAP/etc/xdg:$XDG_CONFIG_DIRS'
       XDG_DATA_HOME: '$SNAP/usr/share'
       DISABLE_WAYLAND: '1'
-      LD_LIBRARY_PATH: '$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:$LD_LIBRARY_PATH'
+      LD_LIBRARY_PATH: '$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio'
       QT_QPA_PLATFORMTHEME: gtk2 # set default theme to gtk to integrate with system theme (GTK2)
     command: desktop-launch mgba-qt
     plugs:
